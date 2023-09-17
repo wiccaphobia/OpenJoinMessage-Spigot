@@ -1,0 +1,4 @@
+name: Open Join Message
+version: '${project.version}'
+main: me.hxli.openjoinmessage.OpenJoinMessage
+api-version: '1.20'
