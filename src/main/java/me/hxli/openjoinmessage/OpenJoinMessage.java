@@ -7,7 +7,7 @@ public final class OpenJoinMessage extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        getServer().getPluginManager().registerEvents(new JoinLeaveListener(), this);
+        getServer().getPluginManager().registerEvents(new JoinLeaveListener(), this); //Join / Leave listener
 
     }
 }

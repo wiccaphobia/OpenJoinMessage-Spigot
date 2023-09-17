@@ -23,7 +23,7 @@ public class JoinLeaveListener implements Listener {
             e.setJoinMessage(ChatColor.GREEN + "Welcome " +
                     ChatColor.BOLD + ChatColor.GRAY + player.getDisplayName() +
                     ChatColor.GREEN + " to " +
-                    ChatColor.LIGHT_PURPLE + ChatColor.DARK_PURPLE + "Minecraft Server" +
+                    ChatColor.LIGHT_PURPLE + "Minecraft Server" +
                     ChatColor.GREEN + "!");
         }
 
