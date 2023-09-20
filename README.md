@@ -11,7 +11,7 @@ Since this is my first time making plugins in java i've had to rely on a databas
 
   ![image](https://github.com/Hxlixd/OpenJoinMessage-Spigot/assets/90792340/7fb462f7-c06a-4c35-b87c-a4a58d13a115)
 
-- Step 3: of course as there is no setup command in the plugin yet, you will have to create two environment variables and name them "OJM_DB_USER" and "OJM_DB_PW".
+- Step 3: as i said before there is no setup script in the plugin yet, indeed you will have to create two environment variables and name them "OJM_DB_USER" and "OJM_DB_PW".
 
   ![image](https://github.com/Hxlixd/OpenJoinMessage-Spigot/assets/90792340/890cb2a8-3eb6-4cf1-a0d9-43b4b23610f3)
 
