@@ -2,6 +2,7 @@
 An open source plugin that lets you customize server messages whenever a player joins or leaves
 
 !! SETUP !!
+
 Since this is my first time making plugins in java i've had to rely on a database instead of a config file (i'm trying to make a script that will setup "almost" everything automatically).
 
 - Step 1: you need to download MariaDB Server from https://downloads.mariadb.org/ and make sure you have any SQL database software like HeidiSQL that comes installed along with MariaDB.
