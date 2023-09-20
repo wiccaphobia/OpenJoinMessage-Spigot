@@ -2,3 +2,10 @@ name: OpenJoinMessage
 version: '${project.version}'
 main: me.hxli.openjoinmessage.OpenJoinMessage
 api-version: '1.20'
+commands:
+  ojm:
+    description: meow
+    usage: §7[§bO§3J§9M§7] §aFor further info, type §e/ojm help§a.
+    aliases: [ojm, openjoinmessage]
+    permission: permission.node
+    permission-message: "You do not have permission to use this command"

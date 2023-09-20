@@ -6,7 +6,7 @@
 
     <groupId>me.hxli</groupId>
     <artifactId>OpenJoinMessage</artifactId>
-    <version>0.0.1</version>
+    <version>0.1.0</version>
     <packaging>jar</packaging>
 
     <name>Open Join Message</name>
@@ -71,11 +71,17 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.maxmind.geoip/geoip-api -->
+        <!-- https://mvnrepository.com/artifact/com.maxmind.geoip/geoip-api
         <dependency>
             <groupId>com.maxmind.geoip</groupId>
             <artifactId>geoip-api</artifactId>
             <version>1.3.1</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>3.1.4</version>
         </dependency>
     </dependencies>
 
