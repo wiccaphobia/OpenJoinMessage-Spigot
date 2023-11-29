@@ -4,7 +4,7 @@ main: me.hxli.openjoinmessage.OpenJoinMessage
 api-version: '1.20'
 commands:
   ojm:
-    description: meow
+    description: An open source plugin that lets you customize player log messages
     usage: §7[§bO§3J§9M§7] §aFor further info, type §e/ojm help§a.
     aliases: [ojm, openjoinmessage]
     permission: permission.node

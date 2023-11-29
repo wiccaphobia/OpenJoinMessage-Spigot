@@ -5,7 +5,9 @@ import me.hxli.openjoinmessage.database.DataBaseUtils;
 import me.hxli.openjoinmessage.listeners.JoinLeaveListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 public final class OpenJoinMessage extends JavaPlugin {
@@ -15,24 +17,33 @@ public final class OpenJoinMessage extends JavaPlugin {
     @Override
     public void onEnable() {
 
-        DataBaseUtils dataBase = new DataBaseUtils();
         Logger logger = this.getLogger();
-        logger.info("[OJM] Database connected");
+        DataBaseUtils dataBase = null;
 
-        checkValues(dataBase);
-        logger.info("[OJM] Values read");
+        try {
+            dataBase = new DataBaseUtils(logger);
+        } catch (SQLException e) {
+            logger.info("Database not found.");
+        } catch (ClassNotFoundException e) {
+            logger.info("JDBC class not found");
+        }
 
-        getServer().getPluginManager().registerEvents(new JoinLeaveListener(), this);
-        logger.info("[OJM] Listeners registered");
-
-
-        this.getCommand("ojm").setExecutor(new ojmCommand(dataBase));
-        logger.info("[OJM] Commands registered");
-
-        logger.info("[OJM] Plugin ready!");
+        if (dataBase != null) {
+            logger.info("Database connected");
+            checkValues(dataBase);
+            logger.info("Values read");
+            getServer().getPluginManager().registerEvents(new JoinLeaveListener(dataBase.getUsingDefaultConfig()), this);
+            this.getCommand("ojm").setExecutor(new ojmCommand(dataBase));
+        } else {
+            getServer().getPluginManager().registerEvents(new JoinLeaveListener(true), this);
+        }
+        logger.info("Listeners registered");
+        logger.info("Commands registered");
+        logger.info("Plugin ready!");
     }
 
     public static void checkValues(DataBaseUtils db) {
+
         if (db.readValueMessage("welcome")==null) {
             msgs.put("welcome", "§bWelcome §r%s §bto the server");
             db.createValueMessage("welcome", msgs.get("welcome"));

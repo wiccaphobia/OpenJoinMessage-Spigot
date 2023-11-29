@@ -15,13 +15,13 @@ public class ojmCommand implements CommandExecutor {
 
     public ojmCommand(DataBaseUtils db) {this.db = db;}
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {//═ ║ ╚ ╝ ╔ ╗
 
         if (commandSender instanceof Player) {
             Player player = (Player) commandSender;
 
             if (strings.length == 0) {
-                player.sendMessage("§7[§bO§3J§9M§7] §aCurrently using §6§lOpenJoinMessage§r §3v0.1.0");
+                player.sendMessage("§7[" + ojmTitle + "§7] §aCurrently using §6§lOpenJoinMessage§r §3v0.1.0");
                 return false;
             } else if (
                     strings[0].equals("edit") &&
