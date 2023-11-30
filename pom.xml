@@ -6,7 +6,7 @@
 
     <groupId>me.hxli</groupId>
     <artifactId>OpenJoinMessage</artifactId>
-    <version>0.2.3</version>
+    <version>0.2.5</version>
     <packaging>jar</packaging>
 
     <name>Open Join Message</name>

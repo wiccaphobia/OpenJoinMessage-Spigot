@@ -2,6 +2,7 @@ package me.hxli.openjoinmessage.commands;
 
 import me.hxli.openjoinmessage.database.DataBaseUtils;
 import me.hxli.openjoinmessage.OpenJoinMessage;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -10,12 +11,16 @@ import org.bukkit.entity.Player;
 public class ojmCommand implements CommandExecutor {
 
     private DataBaseUtils db;
-    private final String ojmTitle = "§bO§3J§9M";
+    private final String ojmTitle = "§3O§bJ§3M";
     private String newValue = "";
+    private boolean dbExists;
 
-    public ojmCommand(DataBaseUtils db) {this.db = db;}
+    public ojmCommand(DataBaseUtils db, boolean dbExists) {
+        this.db = db;
+        this.dbExists = dbExists;
+    }
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {//═ ║ ╚ ╝ ╔ ╗
+    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
 
         if (commandSender instanceof Player) {
             Player player = (Player) commandSender;
@@ -23,6 +28,16 @@ public class ojmCommand implements CommandExecutor {
             if (strings.length == 0) {
                 player.sendMessage("§7[" + ojmTitle + "§7] §aCurrently using §6§lOpenJoinMessage§r §3v0.1.0");
                 return false;
+            } else if (strings[0].equals("help") || strings[0].equals("?")) {
+                player.sendMessage(
+                        "§8╔ §l§7--["+ojmTitle+"§7]--\n" +
+                           "§8║ §6/ojm help\n" +
+                           "§8║ §6/ojm edit §e<welcome/join/leave> <message>\n" +
+                           "§8║ §6/ojm view §e<welcome/join/leave>\n" +
+                           "§8╚ §l§7--------\n"
+                );
+            } else if (!dbExists) {
+                player.sendMessage("§7[" + ojmTitle + "§7] §cCouldn't load database.");
             } else if (
                     strings[0].equals("edit") &&
                             strings.length>=3 &&
@@ -62,14 +77,6 @@ public class ojmCommand implements CommandExecutor {
 
                 player.sendMessage("§7["+ojmTitle+"§7] §6"+strings[1]+" message: \n§7["+ojmTitle+"§7] "+viewValue);
 
-            } else if (strings[0].equals("help") || strings[0].equals("?")) {
-                player.sendMessage(
-                        "§8----------------§7["+ojmTitle+"§7]§8----------------\n" +
-
-                                "§a> §6/ojm help\n" +
-                                "§a> §6/ojm edit §e<welcome/join/leave> <message>\n" +
-                                "§a> §6/ojm view §e<welcome/join/leave>\n"
-                );
             } else {
                 return false;
             }

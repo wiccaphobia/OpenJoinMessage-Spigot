@@ -33,9 +33,10 @@ public final class OpenJoinMessage extends JavaPlugin {
             checkValues(dataBase);
             logger.info("Values read");
             getServer().getPluginManager().registerEvents(new JoinLeaveListener(dataBase.getUsingDefaultConfig()), this);
-            this.getCommand("ojm").setExecutor(new ojmCommand(dataBase));
+            this.getCommand("ojm").setExecutor(new ojmCommand(dataBase, true));
         } else {
             getServer().getPluginManager().registerEvents(new JoinLeaveListener(true), this);
+            this.getCommand("ojm").setExecutor(new ojmCommand(dataBase, false));
         }
         logger.info("Listeners registered");
         logger.info("Commands registered");

@@ -22,7 +22,7 @@ public class JoinLeaveListener implements Listener {
         Player player = e.getPlayer();
 
         if (this.usingDefaultConfig) {
-            player.sendMessage("§7[§bO§3J§9M§7] §aTo properly use the plugin you will need to edit §3ojmdb_config.json§a in the plugins folder.");
+            player.sendMessage("§7[§3O§bJ§3M§7] §aTo properly use the plugin you will need to edit §6ojmdb_config.json §ain the plugins folder.");
         } else {
             if (player.hasPlayedBefore()) {
                 e.setJoinMessage(String.format(OpenJoinMessage.msgs.get("join"), e.getPlayer().getDisplayName()));
