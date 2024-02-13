@@ -11,7 +11,9 @@ import java.util.logging.Logger;
 
 public class DataBaseUtils{
 
-    private final String createDBScript = ("CREATE DATABASE `ojm`; CREATE TABLE `ojm`.`custommessages` (`Type` VARCHAR(242) NOT NULL COLLATE 'utf8mb4_bin', `Value` VARCHAR(242) NULL DEFAULT NULL COLLATE 'utf8mb4_bin', PRIMARY KEY (`Type`(242))) ENGINE = InnoDB;");
+    private final String addTableCustomMessages = ("CREATE TABLE `ojm`.`custommessages` (`Type` VARCHAR(242) NOT NULL COLLATE 'utf8mb4_bin', `Value` VARCHAR(242) NULL DEFAULT NULL COLLATE 'utf8mb4_bin', PRIMARY KEY (`Type`(242))) ENGINE = InnoDB;");
+    private final String createDBScript = ("CREATE DATABASE `ojm`;"+addTableCustomMessages);
+
     private final PreparedStatement createMessage;
     private final PreparedStatement readMessage;
     private final PreparedStatement updateMessage;
@@ -59,7 +61,6 @@ public class DataBaseUtils{
 
                 this.connection.close();
             } catch (SQLException e) {
-                logger.info("SQL error: " + e.getErrorCode());
                 if (e.getErrorCode() == 1007) {
                     // database already exists
                     dbExists = true;
@@ -86,11 +87,22 @@ public class DataBaseUtils{
                 password
         );
 
+        try {
+            PreparedStatement tableCheckStatement = connection.prepareStatement("SHOW TABLES LIKE 'custommessages'");
+            ResultSet resultSet = tableCheckStatement.executeQuery();
+            if (!resultSet.next()) {
+                // Table doesn't exist, create it
+                logger.info("Table \"custommessages\" not found. creating it...");
+                connection.prepareStatement(addTableCustomMessages).executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         createMessage = connection.prepareStatement("INSERT INTO custommessages(Type, Value) VALUES(?, ?)");
         readMessage = connection.prepareStatement("SELECT * FROM custommessages WHERE Type=?");
         updateMessage = connection.prepareStatement("UPDATE custommessages SET Value=? WHERE Type=?");
         deleteMessage = connection.prepareStatement("DELETE FROM custommessages WHERE Type=?");
-
     }
 
     public void createValueMessage(String type, String value) {

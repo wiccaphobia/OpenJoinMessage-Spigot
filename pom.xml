@@ -6,7 +6,7 @@
 
     <groupId>me.hxli</groupId>
     <artifactId>OpenJoinMessage</artifactId>
-    <version>0.2.5</version>
+    <version>0.4.0</version>
     <packaging>jar</packaging>
 
     <name>Open Join Message</name>
@@ -74,7 +74,7 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20210307</version> <!-- Use the latest version -->
+            <version>20240205</version>
         </dependency>
 
         <dependency>
