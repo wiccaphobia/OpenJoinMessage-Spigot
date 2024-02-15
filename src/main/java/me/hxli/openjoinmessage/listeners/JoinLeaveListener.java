@@ -1,12 +1,12 @@
 package me.hxli.openjoinmessage.listeners;
 
 import me.hxli.openjoinmessage.OpenJoinMessage;
-import me.hxli.openjoinmessage.database.DataBaseUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import java.util.logging.Logger;
 
 public class JoinLeaveListener implements Listener {
 
@@ -18,7 +18,6 @@ public class JoinLeaveListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-
         Player player = e.getPlayer();
 
         if (this.usingDefaultConfig) {

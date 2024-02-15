@@ -2,13 +2,14 @@ package me.hxli.openjoinmessage.commands;
 
 import me.hxli.openjoinmessage.database.DataBaseUtils;
 import me.hxli.openjoinmessage.OpenJoinMessage;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+
+import java.io.FileReader;
+import java.io.IOException;
 
 public class ojmCommand implements CommandExecutor {
 
@@ -43,20 +44,22 @@ public class ojmCommand implements CommandExecutor {
     }
 
     private boolean commandCheck(CommandSender commandSender, String s, String[] strings) {
+        String viewValue = "";
+
         if (strings.length == 0) {
-            commandSender.sendMessage("§7[" + ojmTitle + "§7] §aCurrently using §6§lOpenJoinMessage§r §3v0.1.0");
+            //retrieve plugin's version from pom.xml file
+            commandSender.sendMessage("§7["+ojmTitle+"§7] §aCurrently using §3§lOpen§jJoin§bMessage §a"+OpenJoinMessage.class.getPackage().getImplementationVersion());
             return false;
         } else if (strings[0].equals("help") || strings[0].equals("?")) {
             commandSender.sendMessage(
-                "§8╔ §l§7--["+ojmTitle+"§7]--\n" +
+                "§8╔ §l§7["+ojmTitle+"§7]\n" +
                 "§8║ §6/ojm help\n" +
                 "§8║ §6/ojm edit §e<welcome/join/leave> <message>\n" +
                 "§8║ §6/ojm view §e<welcome/join/leave>\n" +
-                "§8║ §6/ojm reset §e<welcome/join/leave/all>\n" +
-                "§8╚ §l§7--------\n"
+                "§8║ §6/ojm reset §e<welcome/join/leave/all>\n"
             );
         } else if (!dbExists) {
-            commandSender.sendMessage("§7[" + ojmTitle + "§7] §cCouldn't load database.");
+            commandSender.sendMessage("§7["+ojmTitle+"§7] §cCouldn't load database.");
         } else if (
             strings[0].equals("edit") &&
             strings.length>=3 && (
@@ -87,10 +90,8 @@ public class ojmCommand implements CommandExecutor {
             strings[1].equals("leave")
         )) {
 
-            String viewValue = "";
             viewValue = OpenJoinMessage.msgs.get(strings[1]).replace("%s", "user");
-
-            commandSender.sendMessage("§7["+ojmTitle+"§7] §6"+strings[1]+" message: \n§7["+ojmTitle+"§7] "+viewValue);
+            commandSender.sendMessage("§7["+ojmTitle+"§7] §3"+strings[1]+" §6message: §r"+viewValue+"§6.");
 
         } else if (
             strings[0].equals("reset") &&
@@ -115,6 +116,12 @@ public class ojmCommand implements CommandExecutor {
                 OpenJoinMessage.msgs.put("leave", leave);
                 db.updateValueMessage("leave", leave);
             }
+
+            commandSender.sendMessage("§7["+ojmTitle+"§7] §6Successful reset for §3"+strings[1]+"§6.");
+            viewValue = OpenJoinMessage.msgs.get(strings[1]).replace("%s", "user");
+            commandSender.sendMessage("§7["+ojmTitle+"§7] §3"+strings[1]+" §6message: §r"+viewValue+"§6.");
+        } else if (!strings[0].isEmpty()) {
+            commandSender.sendMessage("§7["+ojmTitle+"§7] §6Invalid argument, use /ojm help for further information");
         } else {
             return false;
         }

@@ -7,7 +7,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.logging.Logger;
 
 public final class OpenJoinMessage extends JavaPlugin {

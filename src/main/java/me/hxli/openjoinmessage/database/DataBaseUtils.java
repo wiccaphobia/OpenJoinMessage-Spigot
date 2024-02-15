@@ -63,10 +63,11 @@ public class DataBaseUtils{
             } catch (SQLException e) {
                 if (e.getErrorCode() == 1007) {
                     // database already exists
+                    logger.info("Database already exists, skipping creating process.");
                     dbExists = true;
                 } else if (e.getErrorCode() == 1045) {
                     // access denied
-                    logger.info("Access denied (maybe incorrect login information?");
+                    logger.info("Access denied (maybe incorrect login information?)");
                 } else {
                     // other exceptions (server down, no perms, etc.)
                     logger.info("Exception occurred while trying to run the database generation script");
@@ -76,7 +77,7 @@ public class DataBaseUtils{
             }
 
             if (!dbExists)
-                logger.info("Database created");
+                logger.info("Database created.");
         }
 
         Class.forName("org.mariadb.jdbc.Driver");
